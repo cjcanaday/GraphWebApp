@@ -1,6 +1,6 @@
 interface Graph {
-    int MAXNUMVERTICES;
-    int MAXNUMEDGES;
+    int MAX_NUM_VERTICES;
+    int MAX_NUM_EDGES;
 
     void addVertex(String label);
     void removeVertex(String label);
