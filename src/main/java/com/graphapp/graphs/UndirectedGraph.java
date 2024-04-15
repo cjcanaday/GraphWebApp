@@ -6,15 +6,14 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class UndirectedGraph implements Graph {
-    ArrayList<Integer> unusedIndices;
-    private int[][] adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
-    private HashMap<Node, Integer> vertices = new HashMap<>();
-    private int numVertices;
-    private int numEdges;
+    private final ArrayList<Integer> unusedIndices;
+    private int[][] adjMatrix;
+    private final HashMap<Node, Integer> vertices;
 
     public UndirectedGraph() {
-        this.numVertices = 0;
-        this.numEdges = 0;
+        this.adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
+        this.unusedIndices = new ArrayList<>();
+        this.vertices = new HashMap<>();
     }
 
 
@@ -34,7 +33,7 @@ public class UndirectedGraph implements Graph {
         }
 
         else {
-            vertices.put(n, numVertices);
+            vertices.put(n, getNumVertices());
         }
     }
 
@@ -107,6 +106,7 @@ public class UndirectedGraph implements Graph {
 
     @Override
     public int getNumEdges() {
+        int numEdges = 0;
         for(int i = 0; i < adjMatrix.length; i++) {
             for(int j = i; j < adjMatrix.length; j++) {
                 if(adjMatrix[i][j] > 0) {
@@ -116,6 +116,16 @@ public class UndirectedGraph implements Graph {
         }
 
         return numEdges;
+    }
+
+    public int getEdgeWeight(Node n1, Node n2) {
+        var index1 = vertices.get(n1);
+        var index2 = vertices.get(n2);
+        if (index1 == null || index2 == null) {
+            return -1;
+        }
+
+        return adjMatrix[index1][index2];
     }
 
     public int[][] getAdjMatrix() {
