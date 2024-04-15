@@ -1,11 +1,16 @@
-interface Graph {
-    int MAX_NUM_VERTICES;
-    int MAX_NUM_EDGES;
+package com.graphapp.graphs;
 
-    void addVertex(String label);
-    void removeVertex(String label);
-    void addEdge(String label1, String label2);
-    void removeEdge(String label1, String label2);
+import org.springframework.lang.Nullable;
+
+interface Graph {
+    int MAX_NUM_VERTICES = 50;
+
+    void addVertex(Node n);
+    void removeVertex(Node n);
+    void addEdge(Node n1, Node n2, @Nullable Integer weight);
+    void removeEdge(Node n1, Node n2);
     void removeAllEdges();
-    void removeAllVertices(String label);
+    void removeAllVertices();
+    int getNumVertices();
+    int getNumEdges();
 }
