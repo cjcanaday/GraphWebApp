@@ -2,25 +2,33 @@ package com.graphapp.graphs;
 
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class DirectedGraph implements Graph{
 
-    private int[][] adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
-    private HashMap<Node, Integer> vertices;
-    private int numVertices;
-    private int numEdges;
+    private int[][] adjMatrix;
+    private final ArrayList<Integer> emptyIndices;
+    private final HashMap<Node, Integer> vertices;
 
     public DirectedGraph() {
-        this.numVertices = 0;
-        this.numEdges = 0;
+        this.adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
+        this.emptyIndices = new ArrayList<>();
+        this.vertices = new HashMap<>();
     }
 
     @Override
     public void addVertex(Node n) {
-        vertices.put(n, numVertices);
-        numVertices++;
+        if (getNumVertices() == MAX_NUM_VERTICES) {
+            return;
+        }
+        if (emptyIndices.isEmpty()) {
+            vertices.put(n, getNumVertices());
+        } else {
+            vertices.put(n, emptyIndices.get(0));
+            emptyIndices.remove(0);
+        }
     }
 
     @Override
@@ -29,16 +37,12 @@ public class DirectedGraph implements Graph{
         if (index == null) {
             return;
         }
-        vertices.replaceAll((node, ind) -> (ind > index) ? ind - 1 : ind);
+        emptyIndices.add(index);
+        // making row and column of adj matrix 0
+        Arrays.fill(adjMatrix[index], 0);
         for (int i = 0; i < MAX_NUM_VERTICES; i++) {
-            for (int j = index; j < MAX_NUM_VERTICES - 1; j++) {
-                adjMatrix[i][j] = adjMatrix[i][j + 1];
-                adjMatrix[j][i] = adjMatrix[j + 1][i];
-            }
+            adjMatrix[i][index] = 0;
         }
-        adjMatrix[index][index] = 0;
-        Arrays.fill(adjMatrix[MAX_NUM_VERTICES], 0);
-        numVertices--;
     }
 
     @Override
@@ -53,7 +57,6 @@ public class DirectedGraph implements Graph{
         } else {
             adjMatrix[index1][index2] = weight;
         }
-        numEdges++;
     }
 
     @Override
@@ -64,7 +67,6 @@ public class DirectedGraph implements Graph{
             return;
         }
         adjMatrix[index1][index2] = 0;
-        numEdges--;
     }
 
     @Override
@@ -75,16 +77,36 @@ public class DirectedGraph implements Graph{
     @Override
     public void removeAllVertices() {
         adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
+        vertices.clear();
+        emptyIndices.clear();
     }
 
     @Override
     public int getNumVertices() {
-        return numVertices;
+        return vertices.size();
     }
 
     @Override
     public int getNumEdges() {
+        var numEdges = 0;
+        for (int i = 0; i < MAX_NUM_VERTICES; i++) {
+            for (int j = 0; j < MAX_NUM_VERTICES; j++) {
+                if (adjMatrix[i][j] > 0) numEdges++;
+            }
+        }
         return numEdges;
+    }
+
+    public int[][] getAdjMatrix() {
+        return adjMatrix;
+    }
+
+    public HashMap<Node, Integer> getVertices() {
+        return vertices;
+    }
+
+    public ArrayList<Integer> getEmptyIndices() {
+        return emptyIndices;
     }
 
 }
