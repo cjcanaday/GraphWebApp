@@ -97,6 +97,11 @@ public class DirectedGraph implements Graph{
         return numEdges;
     }
 
+    @Override
+    public String getNodeLabel(Node n) {
+        return n.getLabel();
+    }
+
     public int[][] getAdjMatrix() {
         return adjMatrix;
     }

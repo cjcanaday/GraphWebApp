@@ -1,6 +1,7 @@
 package com.graphapp.graphs;
 
 import org.springframework.lang.Nullable;
+import java.util.HashMap;
 
 interface Graph {
     int MAX_NUM_VERTICES = 50;
@@ -13,4 +14,8 @@ interface Graph {
     void removeAllVertices();
     int getNumVertices();
     int getNumEdges();
+    String getNodeLabel(Node n);
+    HashMap<Node, Integer> getVertices();
+
+
 }

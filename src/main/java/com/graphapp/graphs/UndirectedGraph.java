@@ -118,6 +118,11 @@ public class UndirectedGraph implements Graph {
         return numEdges;
     }
 
+    @Override
+    public String getNodeLabel(Node n) {
+        return n.getLabel();
+    }
+
     public int getEdgeWeight(Node n1, Node n2) {
         var index1 = vertices.get(n1);
         var index2 = vertices.get(n2);

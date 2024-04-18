@@ -6,4 +6,8 @@ public class Node {
     Node(String label) {
         this.label = label;
     }
+
+    String getLabel() {
+        return label;
+    }
 }
