@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="'en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
-    <link href="/styles.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Graph Visualizer</title>
+
+    <link th:href="@{/css/styles.css}" href="../static/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1 class="main-title" th:text=" 'Hello ' + ${value} + '(with Thymeleaf)'" ></h1>
+    <div class="container">
+        <div id="top-bar">
+            <h1 id="top-bar-text">Graph Visualizer</h1>
+        </div>
+
+        <div id="main-section">
+            <div id="graph-container" class="rounded-corner"></div>
+            <div id="input-container">
+                <div id="type-container" class="rounded-corner input-container-sections">
+                    <div class="text-gap">
+                        <span id="directed" class="center-text">Directed</span>
+                    </div>
+                    <div id="line"></div>
+                    <div class="text-gap">
+                        <span id="undirected" class="center-text">Undirected</span>
+                    </div>
+                </div>
+                <div id="algorithm-container" class="rounded-corner input-container-sections"></div>
+                <div id="data-container" class="rounded-corner input-container-sections"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
