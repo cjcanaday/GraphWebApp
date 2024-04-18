@@ -102,10 +102,12 @@ public class DirectedGraph implements Graph{
         return n.getLabel();
     }
 
+    @Override
     public int[][] getAdjMatrix() {
         return adjMatrix;
     }
 
+    @Override
     public HashMap<Node, Integer> getVertices() {
         return vertices;
     }

@@ -16,6 +16,7 @@ interface Graph {
     int getNumEdges();
     String getNodeLabel(Node n);
     HashMap<Node, Integer> getVertices();
+    int[][] getAdjMatrix();
 
 
 }

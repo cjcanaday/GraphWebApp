@@ -133,10 +133,12 @@ public class UndirectedGraph implements Graph {
         return adjMatrix[index1][index2];
     }
 
+    @Override
     public int[][] getAdjMatrix() {
         return adjMatrix;
     }
 
+    @Override
     public HashMap<Node, Integer> getVertices() {
         return vertices;
     }
