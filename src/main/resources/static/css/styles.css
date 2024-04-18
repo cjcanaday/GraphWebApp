@@ -1,22 +1,99 @@
-
-body {
+* {
     margin: 0;
+    font-family: Fira Mono, monospace;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
 }
 
 :root {
-    --light-color:#B4AAD6;
+    --light-color: #B4AAD6;
+    --grey: #808080;
+    --light-grey: #D9D9D9;
+    --black: #000000;
+    --margin: 1.5%;
+}
+
+.container {
+    height: 100%;
 }
 
 #top-bar {
     width: 100%;
-    height: 100px;
-    display: flex;
+    height: 8%;
     background-color: var(--light-color);
     align-items: center;
+    display: flex;
 }
 
 #top-bar-text {
-    font-size: 70px;
-    font-family: Fira Mono, monospace;
+    font-size: 60px;
     margin-left: 2%;
+}
+
+#main-section {
+    height: 92%;
+    position: relative;
+    display: flex;
+    padding: var(--margin);
+    gap: var(--margin);
+}
+
+#graph-container {
+    height: 100%;
+    width: 65%;
+    position: relative;
+    display: inline-block;
+    float: left;
+    border: 1px solid var(--grey);
+}
+
+#input-container {
+    width: 35%;
+    position: relative;
+    display: inline-block;
+    align-items: center;
+}
+
+#type-container {
+    width: 60%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#line {
+    width: 1px;
+    height: 100%;
+    background-color: var(--grey);
+}
+
+#algorithm-container {
+    width: 100%;
+    height: 20%;
+    margin-top: 10%;
+}
+
+#data-container {
+    width: 100%;
+    height: 60%;
+    margin-top: 10%;
+}
+
+.input-container-sections {
+    background-color: var(--light-grey);
+    margin: 0 auto;
+}
+
+.text-gap {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.rounded-corner {
+    border-radius: 15px;
 }
