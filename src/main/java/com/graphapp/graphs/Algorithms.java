@@ -9,9 +9,8 @@ import java.util.Arrays;
 public class Algorithms {
 
     public ArrayList<String> bfs(Graph g, Node start) {
-        HashMap<Node, Integer> vertices = g.getVertices();
 
-        if(vertices.get(start) == null) {
+        if(g.getIndex(start) == -1) {
             return null; // need error handling
         }
         ArrayList<String> result = new ArrayList<>();
@@ -22,19 +21,19 @@ public class Algorithms {
         ArrayList<Node> queue = new ArrayList<>();
 
         queue.add(start);
-        visitedVertices[vertices.get(start)] = true;
+        visitedVertices[g.getIndex(start)] = true;
 
         int currIdx;
         while (!queue.isEmpty()) {
             Node current = queue.get(0);
-            currIdx = vertices.get(current);
+            currIdx = g.getIndex(current);
 
             result.add(current.getLabel()); // add found node to result
 
             queue.remove(0);
 
             for(int i = 0; i < adj.length; i++) {
-                if(adj[currIdx][i] == 1 && !visitedVertices[currIdx]) {
+                if(adj[currIdx][i] == 1 && !visitedVertices[i]) {
                     queue.add(g.getVertex(i));
                     visitedVertices[i] = true;
                 }
