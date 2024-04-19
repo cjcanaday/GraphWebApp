@@ -9,11 +9,13 @@ public class UndirectedGraph implements Graph {
     private final ArrayList<Integer> unusedIndices;
     private int[][] adjMatrix;
     private final HashMap<Node, Integer> vertices;
+    private final HashMap<Integer, Node> indices;
 
     public UndirectedGraph() {
         this.adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
         this.unusedIndices = new ArrayList<>();
         this.vertices = new HashMap<>();
+        this.indices = new HashMap<>();
     }
 
 
@@ -29,17 +31,21 @@ public class UndirectedGraph implements Graph {
 
         if(!unusedIndices.isEmpty()) {
             vertices.put(n, unusedIndices.get(0)); // if there are unused indices, use those
+            indices.put(unusedIndices.get(0), n);
             unusedIndices.remove(0);
         }
 
         else {
-            vertices.put(n, getNumVertices());
+            int numVertices = getNumVertices(); // set to variable so indices and vertices match up
+            vertices.put(n, numVertices);
+            indices.put(numVertices, n);
         }
     }
 
     @Override
     public void removeVertex(Node n) {
         var index = vertices.remove(n);
+        indices.remove(index);
         if(index == null) {
             return;
         }
@@ -89,7 +95,6 @@ public class UndirectedGraph implements Graph {
     @Override
     public void removeAllEdges() {
         adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
-
     }
 
     @Override
@@ -97,6 +102,7 @@ public class UndirectedGraph implements Graph {
         adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
         unusedIndices.clear();
         vertices.clear();
+        indices.clear();
     }
 
     @Override
@@ -139,8 +145,32 @@ public class UndirectedGraph implements Graph {
     }
 
     @Override
+    public Node getVertex(int v) {
+        var result = indices.get(v);
+        if(result == null) {
+            return null;
+        }
+        return indices.get(v);
+    }
+
+    @Override
+    public int getIndex(Node n) {
+        var result = vertices.get(n);
+        if(result == null) {
+            return -1;
+        }
+
+        return vertices.get(n);
+    }
+
+    @Override
     public HashMap<Node, Integer> getVertices() {
         return vertices;
+    }
+
+    @Override
+    public HashMap<Integer, Node> getIndices() {
+        return indices;
     }
 
     public ArrayList<Integer> getUnusedIndices() {

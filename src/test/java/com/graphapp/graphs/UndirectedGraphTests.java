@@ -3,6 +3,7 @@ package com.graphapp.graphs;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,14 +15,21 @@ public class UndirectedGraphTests {
     void addVertex() {
         graph = new UndirectedGraph();
 
-        graph.addVertex(new Node("A"));
+        Node n1 = new Node("A");
+        Node n2 = new Node("B");
+
+        graph.addVertex(n1);
         assertEquals(1, graph.getNumVertices());
 
-        graph.addVertex(new Node("B"));
+        graph.addVertex(n2);
         assertEquals(2, graph.getNumVertices());
 
         var vertices = graph.getVertices();
+        var indices = graph.getIndices();
         assertEquals(2, vertices.size());
+
+        assertEquals(n1 , graph.getVertex(graph.getIndex(n1)));
+
     }
 
     @Test
@@ -95,6 +103,13 @@ public class UndirectedGraphTests {
         assertEquals(1, graph.getNumEdges());
         assertArrayEquals(expected, actual);
         assertEquals(1, unusedIndices.size());
+
+        var vertices = graph.getVertices();
+        var indices = graph.getIndices();
+
+        assertNull(graph.getVertex(graph.getIndex(n1))); // not found since removed
+        assertEquals(n2, graph.getVertex(graph.getIndex(n2)));
+
     }
 
     @Test
@@ -217,6 +232,7 @@ public class UndirectedGraphTests {
         assertEquals(0, graph.getNumVertices());
         assertEquals(0, graph.getNumEdges());
         assertEquals(0, graph.getVertices().size());
+        assertEquals(0, graph.getIndices().size());
 
         int[][] expected = new int[50][50];
         int[][] actual = graph.getAdjMatrix();
