@@ -21,5 +21,4 @@ interface Graph {
     Node getVertex(int v);
     int getIndex(Node n);
 
-
 }

@@ -95,7 +95,6 @@ public class UndirectedGraph implements Graph {
     @Override
     public void removeAllEdges() {
         adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
-
     }
 
     @Override

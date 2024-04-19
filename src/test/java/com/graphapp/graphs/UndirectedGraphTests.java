@@ -29,6 +29,7 @@ public class UndirectedGraphTests {
         assertEquals(2, vertices.size());
 
         assertEquals(n1 , graph.getVertex(graph.getIndex(n1)));
+
     }
 
     @Test

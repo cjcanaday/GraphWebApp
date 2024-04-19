@@ -101,6 +101,7 @@ public class DirectedGraph implements Graph{
                 if (adjMatrix[i][j] > 0) numEdges++;
             }
         }
+
         return numEdges;
     }
 

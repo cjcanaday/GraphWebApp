@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DirectedGraphTest {
     private DirectedGraph graph;
 
+
     @Test
     void addVertex() {
         graph = new DirectedGraph();
