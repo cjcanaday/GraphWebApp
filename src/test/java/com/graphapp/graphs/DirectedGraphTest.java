@@ -13,14 +13,19 @@ class DirectedGraphTest {
     void addVertex() {
         graph = new DirectedGraph();
 
-        graph.addVertex(new Node("1"));
+        Node n1 = new Node("1");
+        Node n2 = new Node("2");
+
+        graph.addVertex(n1);
         assertEquals(1, graph.getNumVertices());
 
-        graph.addVertex(new Node("2"));
+        graph.addVertex(n2);
         assertEquals(2, graph.getNumVertices());
 
         var vertices = graph.getVertices();
+        var indices = graph.getIndices();
         assertEquals(2, vertices.size());
+        assertEquals(n1 , graph.getVertex(graph.getIndex(n1)));
     }
 
     @Test
@@ -40,12 +45,25 @@ class DirectedGraphTest {
         graph.addEdge(n3, n1, null);
         assertEquals(4, graph.getNumVertices());
 
+        var vertices = graph.getVertices();
+        var indices = graph.getIndices();
+
+        assertEquals(n1, graph.getVertex(graph.getIndex(n1)));
+        assertEquals(n2, graph.getVertex(graph.getIndex(n2)));
+        assertEquals(n3, graph.getVertex(graph.getIndex(n3)));
+        assertEquals(n4, graph.getVertex(graph.getIndex(n4)));
+
+
         graph.removeVertex(n1);
         assertEquals(3, graph.getNumVertices());
         int[][] expected = new int[50][50];
         expected[1][2] = 1;
         int[][] actual = graph.getAdjMatrix();
         assertArrayEquals(expected, actual);
+
+        vertices = graph.getVertices();
+        indices = graph.getIndices();
+        assertNull(graph.getVertex(graph.getIndex(n1))); // not found since removed
 
         var emptyIndices = graph.getEmptyIndices();
         assertEquals(1, emptyIndices.size());
@@ -55,6 +73,12 @@ class DirectedGraphTest {
         actual = graph.getAdjMatrix();
         assertEquals(2, graph.getNumVertices());
         assertArrayEquals(expected, actual);
+
+        vertices = graph.getVertices();
+        indices = graph.getIndices();
+        assertNull(graph.getVertex(graph.getIndex(n2))); // not found since removed
+
+
     }
 
     @Test
@@ -157,6 +181,7 @@ class DirectedGraphTest {
         graph.removeAllVertices();
         assertEquals(0, graph.getVertices().size());
         assertEquals(0, graph.getNumVertices());
+        assertEquals(0, graph.getIndices().size());
 
         int[][] expected = new int[50][50];
         int[][] actual = graph.getAdjMatrix();

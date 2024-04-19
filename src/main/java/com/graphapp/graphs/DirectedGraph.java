@@ -11,11 +11,13 @@ public class DirectedGraph implements Graph{
     private int[][] adjMatrix;
     private final ArrayList<Integer> emptyIndices;
     private final HashMap<Node, Integer> vertices;
+    private final HashMap<Integer, Node> indices;
 
     public DirectedGraph() {
         this.adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
         this.emptyIndices = new ArrayList<>();
         this.vertices = new HashMap<>();
+        this.indices = new HashMap<>();
     }
 
     @Override
@@ -24,9 +26,12 @@ public class DirectedGraph implements Graph{
             return;
         }
         if (emptyIndices.isEmpty()) {
-            vertices.put(n, getNumVertices());
+            int numVertices = getNumVertices(); // set to variable so indices and vertices match up
+            vertices.put(n, numVertices);
+            indices.put(numVertices, n);
         } else {
             vertices.put(n, emptyIndices.get(0));
+            indices.put(emptyIndices.get(0), n);
             emptyIndices.remove(0);
         }
     }
@@ -34,6 +39,7 @@ public class DirectedGraph implements Graph{
     @Override
     public void removeVertex(Node n) {
         var index = vertices.remove(n);
+        indices.remove(index);
         if (index == null) {
             return;
         }
@@ -79,6 +85,7 @@ public class DirectedGraph implements Graph{
         adjMatrix = new int[MAX_NUM_VERTICES][MAX_NUM_VERTICES];
         vertices.clear();
         emptyIndices.clear();
+        indices.clear();
     }
 
     @Override
@@ -110,6 +117,30 @@ public class DirectedGraph implements Graph{
     @Override
     public HashMap<Node, Integer> getVertices() {
         return vertices;
+    }
+
+    @Override
+    public HashMap<Integer, Node> getIndices() {
+        return indices;
+    }
+
+    @Override
+    public Node getVertex(int v) {
+        var result = indices.get(v);
+        if(result == null) {
+            return null;
+        }
+        return indices.get(v);
+    }
+
+    @Override
+    public int getIndex(Node n) {
+        var result = vertices.get(n);
+        if(result == null) {
+            return -1;
+        }
+
+        return vertices.get(n);
     }
 
     public ArrayList<Integer> getEmptyIndices() {
